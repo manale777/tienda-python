@@ -1,0 +1,37 @@
+{% extends "tienda/layout.html" %}
+{% block body %}
+<h1>Producto</h1>
+<form action="{% url 'JAGUARETE:editar_producto' producto.id %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <div class="form-group col-12">
+            <label for="titulo">Titulo</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" value="{{producto.titulo}}">
+        </div>
+        <div class="form-group col-md-6 col-sm-12">
+            <label for="imagen">Imagen</label>
+            <input type="file" class="form-control" id="imagen" name="imagen">
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <select name="categoria" id="categoria" class="form-control">
+                    {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}">{{categoria.categoria}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripcion</label>
+                <textarea name="descripcion" id="descripcion" class="form-control" rows="5">{{ producto.descripcion}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="precio">Precio</label>
+                <input type="text" class="form-control" name="precio" id="precio" value="{{producto.precio}}">
+            </div>
+            <a href="#" class="btn btn-danger float-right">Eliminar</a>
+            <button type="submit" class="btn btn-warning float-right">Editar</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
